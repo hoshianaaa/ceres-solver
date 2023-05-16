@@ -16,9 +16,10 @@ x3 = 10
 x4 =  15
 x5 = 5
 
-q1 = 10
-q2 = 20
+for i in range(10):
+  for j in range(10):
+    q1 = 5 * i
+    q2 = 5 * j
+    y = x3 * math.sin(deg2rad(q1 + x1)) + x4 * math.sin(q1 + x1 + q2 + x2) + x5
+    print(q1,q2,y)
 
-y = x3 * math.sin(deg2rad(q1 + x1)) + x4 * math.sin(q1 + x1 + q2 + x2) + x5
-
-print(y)
