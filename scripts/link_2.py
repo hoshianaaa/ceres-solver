@@ -2,6 +2,14 @@
 # 2リンクアームの観測モデル
 # y(i) = x3 * sin(q1,i + x1) + x4 * sin(q1,i + x1 + q2,i + x2) + x5
 
+import math
+
+def deg2rad(d):
+  return d * math.pi / 180
+
+def rad2deg(r):
+  return r * 180 / math.pi
+
 x1 = 10
 x2 = 20
 x3 = 10
@@ -11,4 +19,6 @@ x5 = 5
 q1 = 10
 q2 = 20
 
-y = x3 * math.sin( 
+y = x3 * math.sin(deg2rad(q1 + x1)) + x4 * math.sin(q1 + x1 + q2 + x2) + x5
+
+print(y)
