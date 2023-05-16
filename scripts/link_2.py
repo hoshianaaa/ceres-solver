@@ -21,5 +21,4 @@ for i in range(10):
     q1 = 5 * i
     q2 = 5 * j
     y = x3 * math.sin(deg2rad(q1 + x1)) + x4 * math.sin(q1 + x1 + q2 + x2) + x5
-    print(q1,q2,y)
-
+    print(str(q1) + "," + str(q2) + "," + str(y))
