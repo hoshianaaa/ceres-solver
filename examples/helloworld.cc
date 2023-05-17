@@ -48,8 +48,8 @@ using ceres::Solver;
 // derivatives.
 struct CostFunctor {
   template <typename T>
-  bool operator()(const T* const x, T* residual) const {
-    residual[0] = 10.0 - x[0];
+  bool operator()(const T* const x,const T* const x2,const T* const x3,const T* const x4,const T* const x5, T* residual) const {
+    residual[0] = 10.0 - x[0] - x2[0] - x3[0] - x4[0] - x5[0];
     return true;
   }
 };
@@ -60,6 +60,11 @@ int main(int argc, char** argv) {
   // The variable to solve for with its initial value. It will be
   // mutated in place by the solver.
   double x = 0.5;
+  double x2 = 0.5;
+  double x3 = 0.5;
+  double x4 = 0.5;
+  double x5 = 0.5;
+
   const double initial_x = x;
 
   // Build the problem.
@@ -68,8 +73,8 @@ int main(int argc, char** argv) {
   // Set up the only cost function (also known as residual). This uses
   // auto-differentiation to obtain the derivative (jacobian).
   CostFunction* cost_function =
-      new AutoDiffCostFunction<CostFunctor, 1, 1>(new CostFunctor);
-  problem.AddResidualBlock(cost_function, nullptr, &x);
+      new AutoDiffCostFunction<CostFunctor, 1, 1, 1, 1, 1, 1>(new CostFunctor);
+  problem.AddResidualBlock(cost_function, nullptr, &x, &x2, &x3, &x4, &x5);
 
   // Run the solver!
   Solver::Options options;
@@ -79,5 +84,9 @@ int main(int argc, char** argv) {
 
   std::cout << summary.BriefReport() << "\n";
   std::cout << "x : " << initial_x << " -> " << x << "\n";
+  std::cout << "x2 : " << initial_x << " -> " << x2 << "\n";
+  std::cout << "x3 : " << initial_x << " -> " << x3 << "\n";
+  std::cout << "x4 : " << initial_x << " -> " << x4 << "\n";
+  std::cout << "x5 : " << initial_x << " -> " << x5 << "\n";
   return 0;
 }
