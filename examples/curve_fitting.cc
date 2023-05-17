@@ -121,16 +121,16 @@ const double data[] = {
 // clang-format on
 
 struct ExponentialResidual {
-  ExponentialResidual(double x, double y) : x_(x), y_(y) {}
+  ExponentialResidual(double q1, double y) : q1_(q1), y_(y) {}
 
   template <typename T>
   bool operator()(const T* const x1, const T* const x2, const T* const x3, const T* const x4, const T* const x5, T* residual) const {
-    residual[0] = y_ - ceres::sin(x1[0]) * x_ + ceres::cos(x2[0]) + x3[0] + x4[0] + x5[0];
+    residual[0] = y_ - ceres::sin(x1[0]) * q1_ + ceres::cos(x2[0]) + x3[0] + x4[0] + x5[0];
     return true;
   }
 
  private:
-  const double x_;
+  const double q1_;
   const double y_;
 };
 
@@ -150,7 +150,10 @@ int main(int argc, char** argv) {
             new ExponentialResidual(data[2 * i], data[2 * i + 1])),
         nullptr,
         &x1,
-        &x2,&x3,&x4,&x5);
+        &x2,
+        &x3,
+        &x4,
+        &x5);
   }
 
   Solver::Options options;
