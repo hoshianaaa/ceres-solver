@@ -10,11 +10,11 @@ def deg2rad(d):
 def rad2deg(r):
   return r * 180 / math.pi
 
-x1 = 10
-x2 = 20
-x3 = 10
-x4 =  15
-x5 = 5
+x1 = 10 # (/deg)
+x2 = 20 # (/deg)
+x3 = 4.5 # (/m)
+x4 =  2.5 # (/m)
+x5 = 1.5 # (/m)
 
 for i in range(10):
   for j in range(10):
