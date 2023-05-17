@@ -180,11 +180,11 @@ struct ExponentialResidual {
 int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
 
-  double x1 = deg_to_rad(0.0); // 10
-  double x2 = deg_to_rad(0.0); // 10
-  double x3 = 4; // 4.5
-  double x4 = 2; // 2.5
-  double x5 = 1; // 1.5
+  double x1 = deg_to_rad(-20.0); // 10
+  double x2 = deg_to_rad(-30.0); // 10
+  double x3 = 0; // 4.5
+  double x4 = 0; // 2.5
+  double x5 = 0; // 1.5
 
   double q1 = data[0];
   double q2 = data[1];
@@ -218,6 +218,6 @@ int main(int argc, char** argv) {
   Solve(options, &problem, &summary);
   std::cout << summary.BriefReport() << "\n";
   std::cout << "Initial x1: " << 0.0 << " x2: " << 0.0 << "\n";
-  std::cout << "Final   x1: " << x1 << " x2: " << x2 << " x3: " << x3 <<" x4: " << x4 <<" x5: " << x5 <<"\n";
+  std::cout << "Final   x1: " << rad_to_deg(x1) << " x2: " << rad_to_deg(x2) << " x3: " << x3 <<" x4: " << x4 <<" x5: " << x5 <<"\n";
   return 0;
 }
