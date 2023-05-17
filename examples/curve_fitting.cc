@@ -124,8 +124,8 @@ struct ExponentialResidual {
   ExponentialResidual(double x, double y) : x_(x), y_(y) {}
 
   template <typename T>
-  bool operator()(const T* const m, const T* const c, T* residual) const {
-    residual[0] = y_ - ceres::sin(m[0]) * x_ + ceres::cos(c[0]);
+  bool operator()(const T* const x1, const T* const x2, const T* const x3, const T* const x4, const T* const x5, T* residual) const {
+    residual[0] = y_ - ceres::sin(x1[0]) * x_ + ceres::cos(x2[0]) + x3[0] + x4[0] + x5[0];
     return true;
   }
 
@@ -137,17 +137,20 @@ struct ExponentialResidual {
 int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
 
-  double m = 0.0;
-  double c = 0.0;
+  double x1 = 0.0;
+  double x2 = 0.0;
+  double x3 = 0.0;
+  double x4 = 0.0;
+  double x5 = 0.0;
 
   Problem problem;
   for (int i = 0; i < kNumObservations; ++i) {
     problem.AddResidualBlock(
-        new AutoDiffCostFunction<ExponentialResidual, 1, 1, 1>(
+        new AutoDiffCostFunction<ExponentialResidual, 1, 1, 1, 1, 1, 1>(
             new ExponentialResidual(data[2 * i], data[2 * i + 1])),
         nullptr,
-        &m,
-        &c);
+        &x1,
+        &x2,&x3,&x4,&x5);
   }
 
   Solver::Options options;
@@ -158,7 +161,7 @@ int main(int argc, char** argv) {
   Solver::Summary summary;
   Solve(options, &problem, &summary);
   std::cout << summary.BriefReport() << "\n";
-  std::cout << "Initial m: " << 0.0 << " c: " << 0.0 << "\n";
-  std::cout << "Final   m: " << m << " c: " << c << "\n";
+  std::cout << "Initial x1: " << 0.0 << " x2: " << 0.0 << "\n";
+  std::cout << "Final   x1: " << x1 << " x2: " << x2 << " x3: " << x3 <<" x4: " << x4 <<" x5: " << x5 <<"\n";
   return 0;
 }
